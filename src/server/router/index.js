@@ -74,13 +74,15 @@ module.exports = function (source) {
     throw new Error(msg)
   }
 
-  router.use(function (req, res) {
+  router.use(function (req, res, next) {
     if (!res.locals.data) {
-      res.status(404)
-      res.locals.data = {}
+    //   res.status(404)
+    //   res.locals.data = {}
+      next();
     }
-
-    router.render(req, res)
+    else {
+      router.render(req, res)
+    }
   })
 
   return router
